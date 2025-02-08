@@ -4,8 +4,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json()); // Для парсинга JSON
 
-app.post('/', (req, res) => {
-    res.send("OK");
+app.get('/', (req, res) => {
+    res.send('Hello, world!');
 });
 
 // Эндпоинт для приёма данных с датчиков
