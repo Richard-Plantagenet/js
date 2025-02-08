@@ -3,6 +3,8 @@ const pool = require('./init-db'); // Импортируем подключен�
 
 const server = coap.createServer(async (req, res) => {
   if (req.url === '/send-data' && req.method === 'POST') {
+    console.log("Data transmitting");
+
     let body = '';
 
     req.on('data', (chunk) => {
