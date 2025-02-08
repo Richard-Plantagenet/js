@@ -27,4 +27,6 @@ const server = coap.createServer(async (req, res) => {
   }
 });
 
-server.listen(() => console.log('CoAP-сервер запущен'));
+server.listen(5683,
+    () => console.log('CoAP-сервер запущен на порту 5683')
+);

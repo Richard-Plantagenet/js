@@ -34,5 +34,3 @@ if (require.main === module) {
 }
 
 module.exports = pool;
-console.log(pool);
-console.log("В init-db.js");
