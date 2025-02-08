@@ -1,20 +1,39 @@
+require('dotenv').config();
 const express = require('express');
+const { Pool } = require('pg');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json()); // Для парсинга JSON
-
-app.get('/', (req, res) => {
-    res.send('Hello, world!');
+// Подключение к PostgreSQL
+const pool = new Pool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
 });
 
-// Эндпоинт для приёма данных с датчиков
-app.post('/sensors/data', (req, res) => {
-    const sensorData = req.body;
-    console.log('Принятые данные:', sensorData);
+app.use(express.json());
 
-    // В будущем здесь можно сохранять данные в БД
-    res.status(200).send(`ID: ${sensorData.ID}<br>Type: ${sensorData.Type}<br>Value: ${sensorData.Value}`);
+// Эндпоинт для приёма данных
+app.post('/sensors/data', async (req, res) => {
+    const { sensor_id, temperature, humidity } = req.body;
+
+    if (!sensor_id || temperature === undefined || humidity === undefined) {
+        return res.status(400).json({ error: 'Некорректные данные' });
+    }
+
+    try {
+        const result = await pool.query(
+            'INSERT INTO sensor_data (sensor_id, temperature, humidity) VALUES ($1, $2, $3) RETURNING *',
+            [sensor_id, temperature, humidity]
+        );
+        res.status(201).json({ message: 'Данные сохранены', data: result.rows[0] });
+    } catch (error) {
+        console.error('Ошибка при сохранении данных:', error);
+        res.status(500).json({ error: 'Ошибка сервера' });
+    }
 });
 
 // Запуск сервера

@@ -11,13 +11,21 @@ async function createTable() {
         console.log("Connected to PostgreSQL");
 
         await client.query(`
-            CREATE TABLE IF NOT EXISTS users (
+            CREATE TABLE IF NOT EXISTS sensor_data (
                 id SERIAL PRIMARY KEY,
-                name TEXT NOT NULL,
-                email TEXT UNIQUE NOT NULL,
-                created_at TIMESTAMP DEFAULT NOW()
+                sensor_id VARCHAR(50),
+                temperature FLOAT,
+                humidity FLOAT,
+                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         `);
+        /*
+        CREATE TABLE IF NOT EXISTS users (
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            created_at TIMESTAMP DEFAULT NOW()
+        );*/
 
         console.log("Table 'users' created successfully");
     } catch (err) {
