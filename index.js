@@ -16,6 +16,10 @@ const pool = new Pool({
 
 app.use(express.json());
 
+app.get('/', (res, req) => {
+    res.status(200).send("OK");
+});
+
 // Эндпоинт для приёма данных
 app.post('/sensors/data', async (req, res) => {
     const { sensor_id, sensor_type, sensor_value } = req.body;

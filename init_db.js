@@ -11,7 +11,7 @@ async function createTable() {
         console.log("Connected to PostgreSQL");
 
         await client.query(`
-            CREATE TABLE IF NOT EXISTS sensor_data (
+            CREATE TABLE sensor_data (
                 id SERIAL PRIMARY KEY,
                 sensor_id VARCHAR(50),
                 sensor_type VARCHAR(50),
