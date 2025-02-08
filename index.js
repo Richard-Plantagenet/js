@@ -14,7 +14,7 @@ app.post('/sensors/data', (req, res) => {
     console.log('Принятые данные:', sensorData);
 
     // В будущем здесь можно сохранять данные в БД
-    res.status(200).json({ message: 'Данные приняты' });
+    res.status(200).send(`ID: ${sensorData.ID}<br>Type: ${sensorData.Type}<br>Value: ${sensorData.Value}`);
 });
 
 // Запуск сервера
