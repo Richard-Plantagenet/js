@@ -1,5 +1,5 @@
 const express = require('express');
-const pool = require('./init_db');
+const pool = require('./init-db');
 
 const app = express();
 app.use(express.json()); // Для обработки JSON-запросов

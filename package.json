@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-      "init-db": "node init_db.js",
+      "init-db": "node init-db.js",
       "start-http": "node http-server.js",
       "start-coap": "node coap-server.js"
     },

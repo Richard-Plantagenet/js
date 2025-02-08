@@ -1,5 +1,5 @@
 const coap = require('coap');
-const pool = require('./init_db'); // Импортируем подключение к БД
+const pool = require('./init-db'); // Импортируем подключение к БД
 
 const server = coap.createServer(async (req, res) => {
   if (req.url === '/send-data' && req.method === 'POST') {
