@@ -1,11 +1,19 @@
 const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-    res.send('Hello, world!');
+app.use(express.json()); // Для парсинга JSON
+
+// Эндпоинт для приёма данных с датчиков
+app.post('/sensors/data', (req, res) => {
+    const sensorData = req.body;
+    console.log('Принятые данные:', sensorData);
+
+    // В будущем здесь можно сохранять данные в БД
+    res.status(200).json({ message: 'Данные приняты' });
 });
 
-const PORT = process.env.PORT || 3000;
+// Запуск сервера
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Сервер запущен на порту ${PORT}`);
 });
