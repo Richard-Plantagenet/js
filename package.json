@@ -5,7 +5,8 @@
     "scripts": {
       "init-db": "node init-db.js",
       "start-http": "node http-server.js",
-      "start-coap": "node coap-server.js"
+      "start-coap": "node coap-server.js",
+      "start-all": "concurrently \"npm run start-http\" \"npm run start-coap\""
     },
     "dependencies": {
       "express": "^4.18.2",

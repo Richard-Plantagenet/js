@@ -12,7 +12,7 @@ async function createTable() {
         console.log("Подключён к PostgreSQL");
 
         await client.query(`
-            CREATE TABLE IF NOT EXISTS sensor_data (
+            CREATE TABLE IF NOT EXISTS measurements (
                 id SERIAL PRIMARY KEY,
                 sensor_id VARCHAR(50),
                 sensor_type VARCHAR(50),
@@ -29,7 +29,8 @@ async function createTable() {
     }
 }
 
-// Вызываем создание таблицы при старте
-createTable();
+if (require.main === module) {
+    createTable();
+}
 
-module.exports = pool; // Экспорт пула для других файлов
+module.exports = { pool, createTable };
