@@ -1,6 +1,24 @@
 require('dotenv').config();
-const express = require('express');
 const { Pool } = require('pg');
+const coap = require('coap');
+const server = coap.createServer();
+const PORT = process.env.PORT || 3000;
+
+// Подключение к PostgreSQL
+const pool = new Pool({
+    host: "dpg-cujmj38gph6c73bil2s0-a",
+    user: "admin",
+    password: "tyVB2YSKM3dYjwBeuSUu17KCUDXriQIR",
+    database: "greensense",
+    port: 5432
+});
+
+server.on('request', (req, res) => {
+
+});
+
+/*
+const express = require('express');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,7 +34,7 @@ const pool = new Pool({
 
 app.use(express.json());
 
-app.get('/', (res, req) => {
+app.get('/', (req, res) => {
     res.status(200).send("OK");
 });
 
@@ -44,3 +62,4 @@ app.post('/sensors/data', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Сервер запущен на порту ${PORT}`);
 });
+*/

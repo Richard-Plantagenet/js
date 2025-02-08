@@ -1,17 +1,18 @@
-const { Client } = require('pg');
+require('dotenv').config();
+const { Pool } = require('pg');
 
-const client = new Client({
-    connectionString: "postgresql://admin:tyVB2YSKM3dYjwBeuSUu17KCUDXriQIR@dpg-cujmj38gph6c73bil2s0-a/greensense",//process.env.DATABASE_URL, // Render автоматически создаёт эту переменную
+const pool = new Pool({
+    connectionString: process.env.DB_CONNECTION_STRING,
     ssl: { rejectUnauthorized: false }
 });
 
 async function createTable() {
     try {
-        await client.connect();
-        console.log("Connected to PostgreSQL");
+        const client = await pool.connect(); // Получаем подключение из пула
+        console.log("Подключён к PostgreSQL");
 
         await client.query(`
-            CREATE TABLE sensor_data (
+            CREATE TABLE IF NOT EXISTS sensor_data (
                 id SERIAL PRIMARY KEY,
                 sensor_id VARCHAR(50),
                 sensor_type VARCHAR(50),
@@ -19,20 +20,16 @@ async function createTable() {
                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         `);
-        /*
-        CREATE TABLE IF NOT EXISTS users (
-            id SERIAL PRIMARY KEY,
-            name TEXT NOT NULL,
-            email TEXT UNIQUE NOT NULL,
-            created_at TIMESTAMP DEFAULT NOW()
-        );*/
 
         console.log("Таблица измерений создана.");
+
+        client.release(); // Освобождаем подключение
     } catch (err) {
-        console.error("Error creating table:", err);
-    } finally {
-        await client.end();
+        console.error("Ошибка создания таблицы измерений:", err);
     }
 }
 
+// Вызываем создание таблицы при старте
 createTable();
+
+module.exports = pool; // Экспорт пула для других файлов
