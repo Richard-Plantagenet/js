@@ -14,8 +14,8 @@ async function createTable() {
             CREATE TABLE IF NOT EXISTS sensor_data (
                 id SERIAL PRIMARY KEY,
                 sensor_id VARCHAR(50),
-                temperature FLOAT,
-                humidity FLOAT,
+                sensor_type VARCHAR(50),
+                sensor_value FLOAT,
                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         `);
@@ -27,7 +27,7 @@ async function createTable() {
             created_at TIMESTAMP DEFAULT NOW()
         );*/
 
-        console.log("Table 'users' created successfully");
+        console.log("Таблица измерений создана.");
     } catch (err) {
         console.error("Error creating table:", err);
     } finally {
