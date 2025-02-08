@@ -33,4 +33,6 @@ if (require.main === module) {
     createTable();
 }
 
-module.exports = { pool, createTable };
+module.exports = pool;
+console.log(pool);
+console.log("В init-db.js");
