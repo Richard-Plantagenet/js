@@ -1,7 +1,7 @@
 const { Client } = require('pg');
 
 const client = new Client({
-    connectionString: process.env.DATABASE_URL, // Render автоматически создаёт эту переменную
+    connectionString: "postgresql://admin:tyVB2YSKM3dYjwBeuSUu17KCUDXriQIR@dpg-cujmj38gph6c73bil2s0-a/greensense",//process.env.DATABASE_URL, // Render автоматически создаёт эту переменную
     ssl: { rejectUnauthorized: false }
 });
 
