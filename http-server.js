@@ -7,7 +7,7 @@ app.use(express.json()); // Для обработки JSON-запросов
 // Эндпоинт для получения данных с датчиков
 app.get('/api/sensors', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM sensor_data ORDER BY timestamp DESC LIMIT 50');
+    const result = await pool.query('SELECT * FROM measurements ORDER BY timestamp DESC LIMIT 50');
     res.json(result.rows);
   } catch (err) {
     console.error('Ошибка при запросе данных:', err);
@@ -16,7 +16,7 @@ app.get('/api/sensors', async (req, res) => {
 });
 
 // Запуск HTTP-сервера
-const PORT = 3000;
+const PORT = 10000;
 app.listen(PORT, () => {
   console.log(`HTTP-сервер запущен на порту ${PORT}`);
 });
