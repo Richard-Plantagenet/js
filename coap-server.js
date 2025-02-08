@@ -12,7 +12,8 @@ const server = coap.createServer(async (req, res) => {
     req.on('end', async () => {
       try {
         const data = JSON.parse(body);
-        await pool.query('INSERT INTO measurements (temperature, humidity) VALUES ($1, $2)', [data.temp, data.hum]);
+        await pool.query('INSERT INTO measurements (sensor_id, sensor_type, sensor_value) VALUES ($1, $2, $3)',
+            [data.sensorId, data.sensorType, data.sensorValue]);
         res.code = '2.04'; // 2.04 (Changed) – успешное выполнение
       } catch (error) {
         console.error(error);
